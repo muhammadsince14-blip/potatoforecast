@@ -161,7 +161,7 @@ a:hover{
 
 .weatherDiv{
     transform: translateY(-15px);
-    
+    gap: 10px;
    display: flex;
    position: absolute;
    flex-direction: column;
@@ -277,6 +277,11 @@ a:hover{
     width: 80%;
 }
 
+.line.err{
+    background-color: red;
+    width: 80%;
+}
+
 .notify{
     display: flex;
     background: linear-gradient(to right, #12949e, #0c8508);
@@ -301,6 +306,7 @@ a:hover{
     transform: translateY(370px) translateX(830px);
 
 }
+
 
 @media (max-width:500px){
 
