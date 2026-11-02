@@ -51,10 +51,13 @@ btn.onclick = async function(){
         const mainMSG = msg.toUpperCase();
         weatherContent.textContent = `${mainMSG}, error code: ${cod}`;
         line.classList.add("err");
-                    weatherContent.classList.add("err");
-
+                weatherContent.classList.add("err");
+                notify.textContent = 'Error';
+                notify.classList.add("err");
                 await sleep(3000);
                 line.classList.remove("err");
+                                notify.classList.remove("err");
+
   
     };
     
@@ -100,6 +103,7 @@ Locbtn.onclick = async() => {
                 await sleep(3000);
                 line.classList.remove("full");
                 notify.classList.remove("active");
+                notify.classList.remove("err");
 
 
             }
@@ -108,9 +112,12 @@ Locbtn.onclick = async() => {
                 title.textContent = "Error";
                 weatherContent.textContent = "Something went wrong, please check your internet connection"
                 line.classList.add("err");
+                notify.textContent = 'Error';
+                notify.classList.add("err");
                             weatherContent.classList.add("err");
                 await sleep(3000);
                 line.classList.remove("err");
+                notify.classList.remove("err");
             }
            
         }, async (error) => {
@@ -118,7 +125,10 @@ Locbtn.onclick = async() => {
             weatherContent.textContent = "Location Permission Denied, Allow your location and try again."
             line.classList.add("err");
             weatherContent.classList.add("err");
+            notify.textContent = 'Error';
+                notify.classList.add("err");
                 await sleep(3000);
+                notify.classList.remove("err");
                 line.classList.remove("err");
         });
     
