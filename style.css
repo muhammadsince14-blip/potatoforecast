@@ -197,6 +197,12 @@ a:hover{
     top: 35px;
 }
 
+.w.err{
+    position: absolute;
+    color: red;
+    font-size: 2.3rem;
+    top: 120px;
+}
 
 .Locbtn{
     position: absolute;
