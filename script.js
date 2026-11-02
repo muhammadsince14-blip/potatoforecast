@@ -32,6 +32,7 @@ btn.onclick = async function(){
     
     `;
     sound.play();
+    weatherContent.classList.remove("err");
     line.classList.add("full");
     notify.textContent = `${data.name} Weather Recieved!, Scroll Down`;
         notify.classList.add("active");
@@ -50,6 +51,8 @@ btn.onclick = async function(){
         const mainMSG = msg.toUpperCase();
         weatherContent.textContent = `${mainMSG}, error code: ${cod}`;
         line.classList.add("err");
+                    weatherContent.classList.add("err");
+
                 await sleep(3000);
                 line.classList.remove("err");
   
@@ -62,6 +65,7 @@ Locbtn.onclick = async() => {
         if (!navigator.geolocation){
             title.textContent = "Error"
             weatherContent.textContent = "Navigation not supported by your device or browser"
+            weatherContent.classList.add("err");
         }
 
         navigator.geolocation.getCurrentPosition(async (position) => {
@@ -90,6 +94,7 @@ Locbtn.onclick = async() => {
 
                 line.classList.add("full");
                 sound.play();
+                weatherContent.classList.remove("err");
                 notify.textContent = `${data.name} Weather Recieved!, Scroll Down`;
         notify.classList.add("active");
                 await sleep(3000);
@@ -103,6 +108,7 @@ Locbtn.onclick = async() => {
                 title.textContent = "Error";
                 weatherContent.textContent = "Something went wrong, please check your internet connection"
                 line.classList.add("err");
+                            weatherContent.classList.add("err");
                 await sleep(3000);
                 line.classList.remove("err");
             }
@@ -111,6 +117,7 @@ Locbtn.onclick = async() => {
             title.textContent = "Error";
             weatherContent.textContent = "Location Permission Denied, Allow your location and try again."
             line.classList.add("err");
+            weatherContent.classList.add("err");
                 await sleep(3000);
                 line.classList.remove("err");
         });
