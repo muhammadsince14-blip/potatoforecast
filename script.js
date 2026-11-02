@@ -5,6 +5,9 @@ const btn = document.getElementById("btn");
 const input  = document.getElementById("cityInput");
 const weatherContent = document.getElementById("weatherContent");
 const Locbtn = document.querySelector(".Locbtn");
+const line = document.querySelector(".line");
+let sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const notify = document.querySelector(".notify");
 
 btn.onclick = async function(){
 
@@ -24,11 +27,15 @@ btn.onclick = async function(){
     Feels like: ${data.main.feels_like}°C
     Humidity: ${data.main.humidity}%
     Skies: ${data.weather[0].description}
-    lattitude: ${data.coord.lat}                 
-    longitude: ${data.coord.lon}
+    Country: ${data.sys.country}
     
     `;
-    
+    line.classList.add("full");
+    notify.textContent = `${data.name} Weather Recieved!, Scroll Down`;
+        notify.classList.add("active");
+    await sleep(3000);
+    line.classList.remove("full");
+    notify.classList.remove("active");
 
     }
    
@@ -52,7 +59,7 @@ btn.onclick = async function(){
     
 };
 
-Locbtn.onclick = async function(){
+Locbtn.onclick = async() => {
     
         if (!navigator.geolocation){
             title.textContent = "Error"
@@ -80,8 +87,14 @@ Locbtn.onclick = async function(){
             Feels like: ${data.main.feels_like}°C
             Humidity: ${data.main.humidity}%
             Skies: ${data.weather[0].description}
-            lattitude: ${data.coord.lat}                 
-            longitude: ${data.coord.lon}`;
+            Country: ${data.sys.country}  `;
+
+                line.classList.add("full");
+                notify.textContent = `${data.name} Weather Recieved!, Scroll Down`;
+        notify.classList.add("active");
+                await sleep(3000);
+                line.classList.remove("full");
+                notify.classList.remove("active");
 
 
             }
