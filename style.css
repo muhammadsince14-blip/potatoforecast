@@ -307,6 +307,13 @@ a:hover{
 
 }
 
+.notify.err{
+        transform: translateY(370px) translateX(830px);
+    outline: 3px solid red;
+    font-weight: bolder;
+    font-size: 2.5rem;
+}
+
 
 @media (max-width:500px){
 
