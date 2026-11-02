@@ -1,45 +1,118 @@
-<!DOCTYPE html>
+const p = document.querySelector(".p");
+const title = document.querySelector(".title");
+const apiKey = "87f99f256db5b12acb3db6f9a2ab519a";
+const btn = document.getElementById("btn");
+const input  = document.getElementById("cityInput");
+const weatherContent = document.getElementById("weatherContent");
+const Locbtn = document.querySelector(".Locbtn");
+const line = document.querySelector(".line");
+let sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const notify = document.querySelector(".notify");
+let sound = new Audio("sound.wav");
 
-<head>
-    <link rel="stylesheet" href="style.css">
+btn.onclick = async function(){
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potato Forecast</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="Untitled.png">
+     let placeId = input.value;
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${placeId}&appid=${apiKey}&units=metric`;
+    let response = await fetch(url);
+    let data = await response.json();
 
-</head>
-
-<body>
-
-
-    <div class="MainFrame">
-
-        <p class="p">Potato Forecast</p>
-        <input type="text" placeholder="Enter City Name" id="cityInput" >
-
+    try{
         
-        <button type="submit" class="btn" id="btn">Get Weather </button>
-        <p>OR</p>
-        <button type="submit" class="Locbtn" id="btn">Locate Me </button>
-      
+    title.textContent = `${data.name} Weather Forecast`
+    console.log(data)
+    weatherContent.textContent = `
+    Tempurature: ${data.main.temp}°C
+    Peak Tempurature: ${data.main.temp_max}°C
+    Lowest Tempurature: ${data.main.temp_min}°C
+    Feels like: ${data.main.feels_like}°C
+    Humidity: ${data.main.humidity}%
+    Skies: ${data.weather[0].description}
+    Country: ${data.sys.country}
+    
+    `;
+    sound.play();
+    line.classList.add("full");
+    notify.textContent = `${data.name} Weather Recieved!, Scroll Down`;
+        notify.classList.add("active");
+    await sleep(3000);
+    line.classList.remove("full");
+    notify.classList.remove("active");
+
+    }
+   
 
 
-    </div>
+    catch(err){
+        title.textContent = "Error"
+        const cod = data.cod;
+        const msg = data.message;
+        const mainMSG = msg.toUpperCase();
+        weatherContent.textContent = `${mainMSG}, error code: ${cod}`;
+        line.classList.add("err");
+                await sleep(3000);
+                line.classList.remove("err");
+  
+    };
+    
+};
+
+Locbtn.onclick = async() => {
+    
+        if (!navigator.geolocation){
+            title.textContent = "Error"
+            weatherContent.textContent = "Navigation not supported by your device or browser"
+        }
+
+        navigator.geolocation.getCurrentPosition(async (position) => {
+
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            let URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+            let response = await fetch(URL);
+            let data = await response.json()
+            
+            try{
+
+            
+
+            title.textContent = `${data.name} Weather Forecast`
+            console.log(data)
+            weatherContent.textContent = `
+            Tempurature: ${data.main.temp}°C
+            Peak Tempurature: ${data.main.temp_max}°C
+            Lowest Tempurature: ${data.main.temp_min}°C
+            Feels like: ${data.main.feels_like}°C
+            Humidity: ${data.main.humidity}%
+            Skies: ${data.weather[0].description}
+            Country: ${data.sys.country}  `;
+            
+
+                line.classList.add("full");
+                sound.play();
+                notify.textContent = `${data.name} Weather Recieved!, Scroll Down`;
+        notify.classList.add("active");
+                await sleep(3000);
+                line.classList.remove("full");
+                notify.classList.remove("active");
 
 
-      <div class="weatherDiv">
+            }
+            catch(err){
 
-            <p class="title">Waiting For Forecast Result...</p>
-            <div class="line"></div>
-            <p id="weatherContent" class="w">
-
-            </p>
-        </div>
-
-        <div class="notify">Sialkot Weather Recieved!, Scroll Down</div>        
-
-    <script src="script.js"></script>
-
-</body>
+                title.textContent = "Error";
+                weatherContent.textContent = "Something went wrong, please check your internet connection"
+                line.classList.add("err");
+                await sleep(3000);
+                line.classList.remove("err");
+            }
+           
+        }, async (error) => {
+            title.textContent = "Error";
+            weatherContent.textContent = "Location Permission Denied, Allow your location and try again."
+            line.classList.add("err");
+                await sleep(3000);
+                line.classList.remove("err");
+        });
+    
+}
