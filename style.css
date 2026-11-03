@@ -369,7 +369,7 @@ input:focus ~ .border::after{
 }
 
 .notify{
-    transform: translateY(100px) translateX(400px);
+    transform: translateY(100px) translateX(430px);
     width: 250px;
     font-size: 1.2rem;
     height: 120px;
