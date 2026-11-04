@@ -31,6 +31,7 @@ body{
     top: -150px;
     transition: all 0.7s;
     backdrop-filter: blur;
+    cursor: pointer;
 }
 
 input{
@@ -202,6 +203,7 @@ input:focus ~ .border::after{
    border-radius: 15px;
    top:75%;
    outline: 3px solid black;
+   cursor: pointer;
 }
 
 
@@ -326,8 +328,9 @@ input:focus ~ .border::after{
     font-size: 1.3rem;
     position: fixed;
     transform: translateY(370px) translateX(1200px);
-    transition: all 0.6s ease-in-out;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     padding: 15px;
+    cursor: pointer;
 }
 
 .notify.active{
@@ -369,7 +372,7 @@ input:focus ~ .border::after{
 }
 
 .notify{
-    transform: translateY(100px) translateX(430px);
+    transform: translateY(100px) translateX(420px);
     width: 250px;
     font-size: 1.2rem;
     height: 120px;
@@ -403,3 +406,4 @@ input:focus ~ .border::after{
     /*--{'TO BE WORKED AT...'}--*/
 
 }
+
