@@ -9,6 +9,8 @@ const line = document.querySelector(".line");
 let sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const notify = document.querySelector(".notify");
 let sound = new Audio("sound.wav");
+const MainFrame = document.querySelector('.MainFrame');
+const weatherDiv = document.querySelector('.weatherDiv')
 
 btn.onclick = async function(){
 
@@ -133,3 +135,51 @@ Locbtn.onclick = async() => {
         });
     
 }
+
+
+weatherDiv.addEventListener('mousemove', (e) =>{
+
+    const rect = weatherDiv.getBoundingClientRect();
+    
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    const xx = (x / 100);
+    const yy = (-y / 100);
+
+    weatherDiv.style.transition = "0.1s";
+    weatherDiv.style.transform = `perspective(1000px) rotateX(${yy}deg) rotateY(${xx}deg)`;
+
+});
+
+weatherDiv.addEventListener('mouseleave', () =>{
+
+        weatherDiv.style.transition = "0.3s";
+        weatherDiv.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-5px)`;
+
+
+});
+
+MainFrame.addEventListener('mousemove', (e) =>{
+
+    const rect = MainFrame.getBoundingClientRect();
+    
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+
+    const xx = (x / 100);
+    const yy = (-y / 100);
+
+    MainFrame.style.transition = "0.1s";
+    MainFrame.style.transform = `perspective(1000px) rotateX(${yy}deg) rotateY(${xx}deg)`;
+
+});
+
+
+MainFrame.addEventListener('mouseleave', () =>{
+
+        MainFrame.style.transition = "0.3s";
+        MainFrame.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-5px)`;
+
+
+});
